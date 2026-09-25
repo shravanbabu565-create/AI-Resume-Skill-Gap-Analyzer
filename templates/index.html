@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Skill Gap Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+
+    <div class="background">
+
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+
+        <div class="particles">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Page -->
+
+    <main class="page-container">
+
+
+        <!-- Header -->
+
+        <section class="hero">
+
+            <div class="ai-badge">
+
+                <span class="pulse-dot"></span>
+
+                AI POWERED
+
+            </div>
+
+
+            <h1>
+
+                Resume
+                <span>Skill Gap</span>
+                Analyzer
+
+            </h1>
+
+
+            <p>
+
+                Discover how well your resume matches your dream job.
+                Identify missing skills and build a personalized
+                learning roadmap.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- Analyzer Form -->
+
+        <form
+            action="/analyze"
+            method="POST"
+            enctype="multipart/form-data"
+            id="analyzerForm">
+
+
+            <div class="workspace">
+
+
+                <!-- =========================
+                     RESUME PANEL
+                ========================== -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div class="panel-icon">
+                            📄
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Your Resume
+                            </h2>
+
+                            <p>
+                                Upload your latest resume
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Resume Upload -->
+
+                    <label
+                        for="resume"
+                        class="upload-box"
+                        id="resumeUploadBox">
+
+
+                        <div class="upload-animation">
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+                        </div>
+
+
+                        <h3 id="resumeUploadTitle">
+
+                            Drop your resume here
+
+                        </h3>
+
+
+                        <p>
+
+                            or click to browse
+
+                        </p>
+
+
+                        <span class="file-type">
+
+                            PDF • Maximum 10MB
+
+                        </span>
+
+
+                        <input
+                            type="file"
+                            name="resume"
+                            id="resume"
+                            accept=".pdf"
+                            required
+                        >
+
+                    </label>
+
+
+                    <!-- Selected Resume -->
+
+                    <div
+                        class="selected-file"
+                        id="resumeSelectedFile">
+
+                        <span>
+                            📄
+                        </span>
+
+                        <span id="resumeFileName">
+                        </span>
+
+                        <button
+                            type="button"
+                            id="removeResume">
+
+                            ×
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     JOB DESCRIPTION PANEL
+                ========================== -->
+
+                <div class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div class="panel-icon">
+                            💼
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Job Description
+                            </h2>
+
+                            <p>
+                                Upload PDF or paste the JD
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- JD TABS -->
+
+                    <div class="jd-tabs">
+
+
+                        <button
+                            type="button"
+                            class="jd-tab active"
+                            id="pdfTab">
+
+                            📄 Upload JD PDF
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="jd-tab"
+                            id="textTab">
+
+                            📝 Paste JD
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         JD PDF SECTION
+                    ========================== -->
+
+                    <div
+                        id="jdPdfSection"
+                        class="jd-section">
+
+
+                        <label
+                            for="jd_pdf"
+                            class="jd-upload-box"
+                            id="jdUploadBox">
+
+
+                            <div class="jd-upload-icon">
+
+                                📄
+
+                            </div>
+
+
+                            <h3 id="jdUploadTitle">
+
+                                Upload Job Description PDF
+
+                            </h3>
+
+
+                            <p>
+
+                                Click or drag your JD PDF here
+
+                            </p>
+
+
+                            <span>
+
+                                PDF • Maximum 10MB
+
+                            </span>
+
+
+                            <input
+                                type="file"
+                                name="jd_pdf"
+                                id="jd_pdf"
+                                accept=".pdf"
+                            >
+
+                        </label>
+
+
+                        <!-- Selected JD -->
+
+                        <div
+                            class="selected-file"
+                            id="jdSelectedFile">
+
+                            <span>
+                                📄
+                            </span>
+
+                            <span id="jdFileName">
+                            </span>
+
+                            <button
+                                type="button"
+                                id="removeJD">
+
+                                ×
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =========================
+                         JD TEXT SECTION
+                    ========================== -->
+
+                    <div
+                        id="jdTextSection"
+                        class="jd-section hidden">
+
+
+                        <div class="textarea-wrapper">
+
+
+                            <textarea
+                                name="job_description"
+                                id="jobDescription"
+                                placeholder="Paste the complete job description here...
+
+Example:
+
+We are looking for a Python Developer with experience in Flask, SQL, REST APIs, Docker and AWS..."
+                            ></textarea>
+
+
+                            <div class="character-count">
+
+                                <span id="charCount">
+                                    0
+                                </span>
+
+                                characters
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Analyze Button -->
+
+            <div class="action-area">
+
+
+                <button
+                    type="submit"
+                    class="analyze-button"
+                    id="analyzeButton">
+
+
+                    <span>
+                        ✨
+                    </span>
+
+
+                    <span>
+                        Analyze My Resume
+                    </span>
+
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
+
+                </button>
+
+
+                <p class="privacy-text">
+
+                    🔒 Your files are processed locally.
+
+                </p>
+
+
+            </div>
+
+
+        </form>
+
+
+
+        <!-- Features -->
+
+        <section class="features">
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🎯
+                </div>
+
+                <div>
+
+                    <h3>
+                        Skill Matching
+                    </h3>
+
+                    <p>
+                        Compare your skills with job requirements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <div>
+
+                    <h3>
+                        Match Score
+                    </h3>
+
+                    <p>
+                        Get an instant compatibility percentage.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🚀
+                </div>
+
+                <div>
+
+                    <h3>
+                        Learning Roadmap
+                    </h3>
+
+                    <p>
+                        Discover what skills you should learn next.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}">
+    </script>
+
+</body>
+
+</html>
