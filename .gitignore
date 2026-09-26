@@ -1,0 +1,30 @@
+venv/
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Uploaded resumes and job descriptions
+uploads/*
+!uploads/.gitkeep
+
+# Environment variables
+.env
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Flask
+instance/
+
+# Testing/cache
+.pytest_cache/
+.coverage

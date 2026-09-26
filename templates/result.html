@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Analysis Results</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="result-background">
+
+        <div class="result-glow result-glow-1"></div>
+        <div class="result-glow result-glow-2"></div>
+
+    </div>
+
+
+    <main class="results-container">
+
+
+        <!-- Header -->
+
+        <section class="results-header">
+
+            <div class="result-badge">
+
+                <span class="result-dot"></span>
+
+                ANALYSIS COMPLETE
+
+            </div>
+
+
+            <h1>
+
+                Your Resume
+                <span>Analysis</span>
+
+            </h1>
+
+
+            <p>
+
+                Your resume has been analyzed against the
+                selected job description.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- Score -->
+
+        <section class="score-card">
+
+
+            <div class="score-content">
+
+                <p class="score-label">
+                    RESUME MATCH SCORE
+                </p>
+
+
+                <div class="score-circle">
+
+                    <div>
+
+                        <span class="score-number">
+                            {{ results.match_percentage }}
+                        </span>
+
+                        <span class="score-percent">
+                            %
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="score-description">
+
+                    {{ results.matched_skills|length }}
+
+                    of
+
+                    {{ results.required_skills|length }}
+
+                    required skills matched
+
+                </p>
+
+            </div>
+
+
+            <div class="score-summary">
+
+                <div class="summary-item">
+
+                    <span class="summary-icon matched-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            {{ results.matched_skills|length }}
+                        </strong>
+
+                        <span>
+                            Matched Skills
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span class="summary-icon missing-icon">
+                        !
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            {{ results.missing_skills|length }}
+                        </strong>
+
+                        <span>
+                            Skill Gaps
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span class="summary-icon total-icon">
+                        #
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            {{ results.required_skills|length }}
+                        </strong>
+
+                        <span>
+                            Required Skills
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Two columns -->
+
+        <section class="result-grid">
+
+
+            <!-- Matched Skills -->
+
+            <div class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="card-icon matched-card-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Matched Skills
+                        </h2>
+
+                        <p>
+                            Skills already present in your resume
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {% if results.matched_skills %}
+
+                <div class="skill-list">
+
+                    {% for skill in results.matched_skills %}
+
+                    <span class="result-skill matched">
+
+                        {{ skill }}
+
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+                {% else %}
+
+                <div class="empty-state">
+
+                    No matching skills detected.
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- Missing Skills -->
+
+            <div class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="card-icon missing-card-icon">
+                        !
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Skill Gaps
+                        </h2>
+
+                        <p>
+                            Skills required but not found
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {% if results.missing_skills %}
+
+                <div class="skill-list">
+
+                    {% for skill in results.missing_skills %}
+
+                    <span class="result-skill missing">
+
+                        {{ skill }}
+
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+                {% else %}
+
+                <div class="empty-state">
+
+                    No skill gaps detected.
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- Learning Recommendations -->
+
+        <section class="result-card full-card">
+
+            <div class="result-card-header">
+
+                <div class="card-icon learning-card-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <h2>
+                        Recommended Learning
+                    </h2>
+
+                    <p>
+                        Skills you can develop to improve your match
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {% if results.recommendations %}
+
+            <div class="recommendation-grid">
+
+                {% for item in results.recommendations %}
+
+                <div class="recommendation-card">
+
+                    <div class="recommendation-number">
+
+                        {{ loop.index }}
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            {{ item.skill }}
+
+                        </h3>
+
+                        <p>
+
+                            {{ item.recommendation }}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+
+                No additional learning recommendations.
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+
+        <!-- Skill Categories -->
+
+        <section class="result-card full-card">
+
+            <div class="result-card-header">
+
+                <div class="card-icon category-card-icon">
+                    ◈
+                </div>
+
+                <div>
+
+                    <h2>
+                        Your Skill Profile
+                    </h2>
+
+                    <p>
+                        Skills detected from your resume
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="category-grid">
+
+                {% for category, skills in
+                   results.resume_categories.items() %}
+
+                <div class="category-card">
+
+                    <h3>
+
+                        {{ category }}
+
+                    </h3>
+
+                    <div class="category-skills">
+
+                        {% for skill in skills %}
+
+                        <span>
+
+                            {{ skill }}
+
+                        </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- All Resume Skills -->
+
+        <section class="result-card full-card">
+
+            <div class="result-card-header">
+
+                <div class="card-icon resume-card-icon">
+                    📄
+                </div>
+
+                <div>
+
+                    <h2>
+                        Skills Found In Resume
+                    </h2>
+
+                    <p>
+                        All recognized skills from your resume
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="skill-list">
+
+                {% for skill in results.resume_skills %}
+
+                <span class="result-skill normal">
+
+                    {{ skill }}
+
+                </span>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Buttons -->
+
+        <div class="result-actions">
+
+            <a
+                href="/"
+                class="new-analysis-button">
+
+                <span>
+                    + 
+                </span>
+
+                Analyze Another Resume
+
+            </a>
+
+        </div>
+
+
+        <p class="result-footer">
+
+            AI Resume Skill Gap Analyzer •
+            Resume analysis completed locally
+
+        </p>
+
+
+    </main>
+
+
+</body>
+
+</html>
