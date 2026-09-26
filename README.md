@@ -44,42 +44,7 @@ Provides recommendations based on the skills missing from the candidate's resume
 📈 Interactive Results
 
 Displays analysis results in an easy-to-understand dashboard.
-
-🏗️ System Workflow
-                ┌─────────────────┐
-                │  Upload Resume  │
-                └────────┬────────┘
-                         ↓
-                ┌─────────────────┐
-                │ Resume Parsing  │
-                └────────┬────────┘
-                         ↓
-                ┌─────────────────┐
-                │ Skill Extraction│
-                └────────┬────────┘
-                         ↓
-        ┌────────────────┴────────────────┐
-        │                                 │
-        ↓                                 ↓
-┌─────────────────┐              ┌──────────────────┐
-│ Resume Skills   │              │ Job Description  │
-└────────┬────────┘              └────────┬─────────┘
-         │                                │
-         └──────────────┬─────────────────┘
-                        ↓
-              ┌──────────────────┐
-              │ Skill Comparison │
-              └────────┬─────────┘
-                       ↓
-              ┌──────────────────┐
-              │ Skill Gap Report │
-              └────────┬─────────┘
-                       ↓
-       ┌───────────────┴────────────────┐
-       ↓                                ↓
-┌───────────────┐              ┌─────────────────┐
-│ Match Score   │              │ Recommendations │
-└───────────────┘              └─────────────────┘
+ 
 🛠️ Technologies Used
 Technology	Purpose
 Python	Core application logic
